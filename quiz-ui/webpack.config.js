@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/main.ts',
@@ -11,7 +12,10 @@ module.exports = {
     clean: true
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    fallback: {
+      "process": require.resolve("process/browser")
+    }
   },
   module: {
     rules: [
@@ -41,6 +45,9 @@ module.exports = {
       patterns: [
         { from: 'public/sw.js', to: 'sw.js' }
       ]
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
     })
   ],
   devServer: {

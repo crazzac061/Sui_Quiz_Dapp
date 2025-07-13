@@ -1,0 +1,5 @@
+# Ignore local config and secrets
+src/config.ts
+.env
+node_modules/
+dist/ 
